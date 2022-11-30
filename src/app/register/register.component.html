@@ -1,0 +1,66 @@
+<div class="col-md-12">
+  <div class="card card-container">
+    <form
+      *ngIf="!success"
+      name="form"
+      (ngSubmit)="f.form.valid && onSubmit()"
+      #f="ngForm"
+      novalidate
+    >
+      <div class="form-group">
+        <label>Username</label>
+        <input
+          type="text"
+          class="form-control"
+          name="username"
+          [(ngModel)]="form.username"
+          required
+          minlength="3"
+          maxlength="20"
+          #username="ngModel"
+          [ngClass]="{ 'is-invalid': f.submitted && username.errors }"
+        />
+        <div class="invalid-feedback" *ngIf="username.errors && f.submitted">
+          <div *ngIf="username.errors['required']">Username?</div>
+          <div *ngIf="username.errors['minlength']">
+            Username mind. 3 Zeichen
+          </div>
+          <div *ngIf="username.errors['maxlength']">
+            Username max. 20 Zeichen
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input
+          type="password"
+          class="form-control"
+          name="password"
+          [(ngModel)]="form.password"
+          required
+          minlength="6"
+          #password="ngModel"
+          [ngClass]="{ 'is-invalid': f.submitted && password.errors }"
+        />
+        <div class="invalid-feedback" *ngIf="password.errors && f.submitted">
+          <div *ngIf="password.errors['required']">Password?</div>
+          <div *ngIf="password.errors['minlength']">
+            Passwort min. 6 Zeichen
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary btn-block">Registieren</button>
+      </div>
+
+      <div class="alert alert-warning" *ngIf="f.submitted && signupfail">
+        Registrierung fehlgeschlagen!<br />{{ errorMessage }}
+      </div>
+    </form>
+
+    <div class="alert alert-success" *ngIf="success">
+      Registrierung erfolgreich!
+    </div>
+  </div>
+</div>
