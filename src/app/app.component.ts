@@ -12,6 +12,7 @@ export class AppComponent {
   private roles: string[] = [];
   loggedin = false;
   adminview = false;
+  moderatorview = false;
   username?: string;
 
   constructor(private storageService: StorageService, private authService: AuthService) { }
@@ -23,22 +24,14 @@ export class AppComponent {
       const user = this.storageService.getUser();
       this.roles = user.roles;
 
-      this.adminview = this.roles.includes('admin');
+      this.adminview = this.roles.includes('ROLE_ADMIN');
+      this.moderatorview = this.roles.includes('ROLE_MODERATOR')
       this.username = user.username;
     }
   }
 
   logout(): void {
-    this.authService.logout().subscribe({
-      next: res => {
-        console.log(res);
-        this.storageService.clean();
-
-        window.location.reload();
-      },
-      error: err => {
-        console.log(err);
-      }
-    });
+    this.storageService.signOut();
+    window.location.reload();
   }
 }

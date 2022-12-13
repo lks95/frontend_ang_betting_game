@@ -13,6 +13,7 @@ import { UserComponent } from './user/user.component';
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import {RouterModule, Routes} from "@angular/router";
+import { ModeratorComponent } from './moderator/moderator.component';
 
 
 
@@ -37,6 +38,7 @@ const routes: Routes = [
     ProfileComponent,
     AdminComponent,
     UserComponent,
+    ModeratorComponent,
   ],
   imports: [
     BrowserModule,
